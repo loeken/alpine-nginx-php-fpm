@@ -50,8 +50,9 @@ http {
 
     index index.html index.php;
 
+
     location / {
-      try_files $uri $uri/ /index.php$is_args$args;
+        try_files $uri $uri/ /index.php?_url=$uri&$args;
     }
 
     location ~ \.php$ {

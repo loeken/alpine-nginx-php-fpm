@@ -1,4 +1,4 @@
-FROM alpine:3.7
+FROM alpine:3.12
 
 # Create user
 RUN adduser -D -u 1000 -g 1000 -s /bin/sh www-data && \
@@ -22,8 +22,7 @@ RUN apk add --no-cache --update \
     nginx && \
     mkdir -p /var/cache/nginx && \
     chown -R www-data:www-data /var/cache/nginx && \
-    chown -R www-data:www-data /var/lib/nginx && \
-    chown -R www-data:www-data /var/tmp/nginx
+    chown -R www-data:www-data /var/lib/nginx 
 
 # Install PHP/FPM + Modules
 RUN apk add --no-cache --update \

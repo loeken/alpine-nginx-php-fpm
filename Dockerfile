@@ -7,6 +7,7 @@ RUN adduser -D -u 1000 -g 1000 -s /bin/sh www-data && \
 
 # Install tini - 'cause zombies - see: https://github.com/ochinchina/supervisord/issues/60
 # (also pkill hack)
+RUN apk upgrade --update-cache --available
 RUN apk add --no-cache --update tini
 
 # Install a golang port of supervisord

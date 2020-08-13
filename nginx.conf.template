@@ -50,6 +50,10 @@ http {
 
     index index.html index.php;
 
+    location /stub_status {
+        stub_status on;
+        break;
+    }
 
     location / {
         try_files $uri $uri/ /index.php?_url=$uri&$args;

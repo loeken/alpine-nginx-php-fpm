@@ -1,4 +1,4 @@
-FROM alpine:3.12
+FROM alpine:3.11
 
 # Create user
 RUN adduser -D -u 1000 -g 1000 -s /bin/sh www-data && \
@@ -59,7 +59,15 @@ RUN apk add --no-cache --update \
     php7-zlib \
     php7-zmq
 
+ADD https://raw.githubusercontent.com/docker-library/php/master/docker-php-ext-enable /usr/local/bin/
+RUN chown nobody:nobody /usr/local/bin/docker-*
+RUN chmod uga+x /usr/local/bin/docker-php-* && sync
+RUN apk add --no-cache php7-pear php7-dev gcc musl-dev make
+RUN echo '' | pecl install memcache 
+ENV PHP_INI_DIR=/etc/php7
+RUN docker-php-ext-enable memcache
 # Runtime env vars are envstub'd into config during entrypoint
+
 ENV SERVER_NAME="localhost"
 ENV SERVER_ALIAS=""
 ENV SERVER_ROOT=/var/www/html
